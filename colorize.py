@@ -5,8 +5,8 @@ from keras.layers.normalization import BatchNormalization
 from keras.models import Sequential
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from skimage.color import rgb2lab, lab2rgb, rgb2gray, xyz2lab
-from skimage.io import imsave
-from PIL import ImageFile
+from skimage.io import imsave, imread
+from skimage.transform import resize
 import numpy as np
 import os
 import random
@@ -16,8 +16,6 @@ import matplotlib.image as mpimg
 
 def load_image(file):
     image = load_img(file)
-    # plt.imshow(image)
-    # plt.show()
     image = img_to_array(image)
     image = np.array(image, dtype=float)
 
@@ -64,8 +62,7 @@ def save_output(gray, colorized):
 
 
 def train_model(batch_size, epochs):
-    image = load_image('input/all/abomasnow.png')
-    # image = cv2.imread('input/all/abra.png')
+    image = load_image('woman.jpg')
 
     gray, color = get_input_and_output(image)
     model = define_model()
